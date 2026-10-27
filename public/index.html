@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rivera | Frutiger Aero Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Orbitron & Segoe UI / Trebuchet style backup -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Segoe UI"', '"Trebuchet MS"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'aero-window': '0 20px 50px rgba(0, 40, 80, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.9), inset 0 -1px 2px rgba(0, 0, 0, 0.2)',
+                        'aero-btn': '0 4px 12px rgba(0, 100, 200, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 -2px 5px rgba(0, 60, 120, 0.4)',
+                        'aero-btn-hover': '0 6px 16px rgba(0, 160, 255, 0.5), inset 0 1px 2px rgba(255, 255, 255, 1), inset 0 -2px 6px rgba(0, 100, 200, 0.5)',
+                        'gloss-badge': 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0,0,0,0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Modern Glass & Frutiger Aero Skeuomorphic Enhancements */
+        body {
+            font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+            transition: background 0.8s ease-in-out;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        /* Wallpapers */
+        .bg-ocean {
+            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 30%, #38bdf8 60%, #4ade80 100%);
+            background-attachment: fixed;
+        }
+        .bg-meadow {
+            background: linear-gradient(135deg, #059669 0%, #10b981 35%, #84cc16 70%, #38bdf8 100%);
+            background-attachment: fixed;
+        }
+        .bg-sunset {
+            background: linear-gradient(135deg, #0284c7 0%, #818cf8 30%, #c084fc 60%, #f43f5e 100%);
+            background-attachment: fixed;
+        }
+
+        /* Aero Glass Container */
+        .aero-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(200, 235, 255, 0.35) 50%, rgba(150, 210, 255, 0.45) 100%);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Title Bar Glass */
+        .aero-titlebar {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(200, 230, 255, 0.6) 45%, rgba(120, 190, 240, 0.5) 50%, rgba(160, 215, 255, 0.7) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        /* Gloss Overlay Trick for Skeuomorphic Depth */
+        .gloss-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+        .gloss-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        /* Bubbly Frutiger Button */
+        .aero-btn {
+            background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 45%, #1d4ed8 50%, #2563eb 100%);
+            border: 1px solid #93c5fd;
+            border-bottom-color: #1e40af;
+            color: white;
+            text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .aero-btn:hover {
+            background: linear-gradient(180deg, #93c5fd 0%, #60a5fa 45%, #2563eb 50%, #3b82f6 100%);
+            transform: translateY(-1px);
+        }
+        .aero-btn:active {
+            transform: translateY(1px);
+            background: linear-gradient(180deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);
+        }
+
+        /* Green Bubbly Accent Button */
+        .aero-btn-green {
+            background: linear-gradient(180deg, #4ade80 0%, #22c55e 45%, #15803d 50%, #16a34a 100%);
+            border: 1px solid #bbf7d0;
+            border-bottom-color: #14532d;
+            color: white;
+            text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+        }
+        .aero-btn-green:hover {
+            background: linear-gradient(180deg, #86efac 0%, #4ade80 45%, #16a34a 50%, #22c55e 100%);
+        }
+
+        /* Windows Aero Buttons (Close, Max, Min) */
+        .win-btn {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .win-close { background: linear-gradient(180deg, #fca5a5 0%, #ef4444 50%, #b91c1c 100%); }
+        .win-min { background: linear-gradient(180deg, #fef08a 0%, #eab308 50%, #a16207 100%); }
+        .win-max { background: linear-gradient(180deg, #86efac 0%, #22c55e 50%, #15803d 100%); }
+
+        /* Animated Water Bubble Background Effect */
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: inset 0 -5px 10px rgba(0, 100, 200, 0.2), 0 4px 10px rgba(0,0,0,0.1);
+            animation: floatBubble 12s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatBubble {
+            0% { transform: translateY(105vh) scale(0.6); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+        }
+
+        /* Equalizer Animation for Music Player */
+        .eq-bar {
+            background: linear-gradient(180deg, #38bdf8 0%, #4ade80 100%);
+            animation: eqBounce 0.8s infinite alternate ease-in-out;
+        }
+        .eq-bar:nth-child(2) { animation-delay: 0.2s; }
+        .eq-bar:nth-child(3) { animation-delay: 0.4s; }
+        .eq-bar:nth-child(4) { animation-delay: 0.1s; }
+        .eq-bar:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes eqBounce {
+            0% { height: 15%; }
+            100% { height: 95%; }
+        }
+
+        .paused .eq-bar {
+            animation-play-state: paused;
+            height: 20% !important;
+        }
+
+        /* Custom Aero Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(200, 230, 255, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #93c5fd 0%, #3b82f6 100%);
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body id="body-bg" class="bg-ocean text-slate-800 min-h-screen relative flex flex-col justify-between">
+
+    <!-- Floating Water Bubbles -->
+    <div id="bubble-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Lens Flare / Sunburst Header Effect -->
+    <div class="fixed -top-40 -left-40 w-96 h-96 bg-white/40 rounded-full blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed top-20 right-10 w-80 h-80 bg-cyan-300/30 rounded-full blur-3xl pointer-events-none z-0"></div>
+
+    <!-- Dynamic Toast Notification -->
+    <div id="aero-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 aero-glass shadow-aero-window rounded-xl p-4 max-w-sm flex items-center space-x-3 border border-white/90">
+        <div class="w-10 h-10 rounded-full bg-emerald-400/80 border border-white flex items-center justify-center text-white shadow-md flex-shrink-0 gloss-overlay">
+            <i data-lucide="check" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <h5 id="toast-title" class="text-sm font-bold text-slate-900">Notification</h5>
+            <p id="toast-message" class="text-xs text-slate-700">Action performed successfully!</p>
+        </div>
+    </div>
+
+    <!-- TOP TASKBAR / NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 w-full aero-glass shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+            
+            <!-- Left Logo / User Indicator -->
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-400 to-blue-500 border border-white flex items-center justify-center text-white shadow-md gloss-overlay">
+                    <i data-lucide="globe" class="w-5 h-5"></i>
+                </div>
+                <span class="font-bold text-slate-900 text-base tracking-wide flex items-center gap-1">
+                    Alex.Aero <span class="text-xs px-2 py-0.5 rounded-full bg-white/60 border border-white/80 text-blue-800 font-semibold shadow-gloss-badge">v2.007</span>
+                </span>
+            </div>
+
+            <!-- Central Quick Links Bar -->
+            <nav class="hidden md:flex items-center space-x-1 bg-white/30 p-1 rounded-full border border-white/60 shadow-inner">
+                <a href="#about" class="px-4 py-1 text-xs font-semibold text-slate-800 hover:bg-white/60 rounded-full transition-all">About</a>
+                <a href="#skills" class="px-4 py-1 text-xs font-semibold text-slate-800 hover:bg-white/60 rounded-full transition-all">Skills</a>
+                <a href="#projects" class="px-4 py-1 text-xs font-semibold text-slate-800 hover:bg-white/60 rounded-full transition-all">Projects</a>
+                <a href="#guestbook" class="px-4 py-1 text-xs font-semibold text-slate-800 hover:bg-white/60 rounded-full transition-all">Guestbook</a>
+            </nav>
+
+            <!-- Right Controls & Aero Clock -->
+            <div class="flex items-center space-x-4">
+                
+                <!-- Theme / Wallpaper Selector -->
+                <div class="flex items-center space-x-1 bg-white/40 p-1 rounded-lg border border-white/80">
+                    <button onclick="changeTheme('ocean')" class="w-5 h-5 rounded-full bg-cyan-400 border border-white shadow-sm hover:scale-110 transition-transform" title="Aqua Ocean Theme"></button>
+                    <button onclick="changeTheme('meadow')" class="w-5 h-5 rounded-full bg-emerald-400 border border-white shadow-sm hover:scale-110 transition-transform" title="Meadow Breeze Theme"></button>
+                    <button onclick="changeTheme('sunset')" class="w-5 h-5 rounded-full bg-purple-400 border border-white shadow-sm hover:scale-110 transition-transform" title="Sunset Sky Theme"></button>
+                </div>
+
+                <!-- Clock Widget -->
+                <div class="text-right flex items-center space-x-2 bg-white/50 px-3 py-1 rounded-lg border border-white/80 shadow-inner">
+                    <i data-lucide="clock" class="w-4 h-4 text-blue-700"></i>
+                    <span id="digital-clock" class="text-xs font-bold font-mono text-slate-900">12:00:00 PM</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 relative z-10 flex-grow">
+
+        <!-- HERO SECTION: PROFILE CARD & MUSIC PLAYER -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Main Hero Profile Card (Aero Window) -->
+            <div class="lg:col-span-8 aero-glass rounded-2xl shadow-aero-window overflow-hidden border border-white/90">
+                <!-- Window Titlebar -->
+                <div class="aero-titlebar px-4 py-2.5 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="user" class="w-4 h-4 text-blue-700"></i>
+                        <span class="text-xs font-bold text-slate-800 tracking-wide">User_Profile.exe - Creative Technologist</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="win-btn win-min"></div>
+                        <div class="win-btn win-max"></div>
+                        <div class="win-btn win-close"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Body -->
+                <div class="p-6 sm:p-8 space-y-6">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                        
+                        <!-- Avatar Container with Gloss Shield -->
+                        <div class="relative group">
+                            <div class="w-32 h-32 rounded-2xl p-1 bg-gradient-to-b from-white via-cyan-200 to-blue-400 shadow-xl border border-white gloss-overlay">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80" alt="Alex Rivera" class="w-full h-full object-cover rounded-xl">
+                            </div>
+                            <!-- Status Badge -->
+                            <div class="absolute -bottom-2 -right-2 bg-emerald-400 text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white shadow-md flex items-center space-x-1 gloss-overlay">
+                                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                                <span>ONLINE</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Bio Text -->
+                        <div class="space-y-3 text-center sm:text-left flex-1">
+                            <div>
+                                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight drop-shadow-sm">
+                                    Anna Lozano
+                                </h1>
+                                <p class="text-sm font-semibold text-blue-800 drop-shadow-xs">
+                                    UI/UX Designer &amp; Digital Alchemist
+                                </p>
+                            </div>
+
+                            <p class="text-sm text-slate-700 leading-relaxed bg-white/40 p-3 rounded-xl border border-white/70 shadow-inner">
+                                Crafting rich visual experiences with glossy aesthetics, intuitive desktop-inspired interfaces, and futuristic 2000s skeuomorphism. Specialized in React, WebGL, &amp; interactive web design.
+                            </p>
+
+                            <!-- Bubbly CTA Action Buttons -->
+                            <div class="pt-2 flex flex-wrap gap-3 justify-center sm:justify-start">
+                                <a href="#projects" class="aero-btn px-5 py-2.5 rounded-xl font-bold text-xs shadow-aero-btn flex items-center space-x-2 gloss-overlay">
+                                    <i data-lucide="folder-git-2" class="w-4 h-4"></i>
+                                    <span>Explore Work</span>
+                                </a>
+                                <a href="#guestbook" class="aero-btn-green px-5 py-2.5 rounded-xl font-bold text-xs shadow-aero-btn flex items-center space-x-2 gloss-overlay">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                    <span>Get In Touch</span>
+                                </a>
+                                <button onclick="showToast('Resume requested', 'Downloading Alex_Rivera_CV.pdf...')" class="bg-white/70 hover:bg-white text-slate-800 border border-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all flex items-center space-x-1.5 gloss-overlay">
+                                    <i data-lucide="download" class="w-4 h-4 text-blue-600"></i>
+                                    <span>CV.pdf</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Highlight Grid inside Profile -->
+                    <div class="grid grid-cols-3 gap-3 pt-2 text-center">
+                        <div class="bg-white/40 p-3 rounded-xl border border-white/70 shadow-inner">
+                            <span class="block text-xl font-extrabold text-blue-900">7+</span>
+                            <span class="text-[11px] font-semibold text-slate-600">Years Exp.</span>
+                        </div>
+                        <div class="bg-white/40 p-3 rounded-xl border border-white/70 shadow-inner">
+                            <span class="block text-xl font-extrabold text-blue-900">42+</span>
+                            <span class="text-[11px] font-semibold text-slate-600">Projects</span>
+                        </div>
+                        <div class="bg-white/40 p-3 rounded-xl border border-white/70 shadow-inner">
+                            <span class="block text-xl font-extrabold text-blue-900">100%</span>
+                            <span class="text-[11px] font-semibold text-slate-600">Gloss</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR WIDGETS COLUMN -->
+            <div class="lg:col-span-4 space-y-6">
+                
+                <!-- FRUTIGER AERO MUSIC PLAYER WIDGET -->
+                <div class="aero-glass rounded-2xl shadow-aero-window overflow-hidden border border-white/90">
+                    <div class="aero-titlebar px-4 py-2 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="disc" class="w-4 h-4 text-blue-700 animate-spin"></i>
+                            <span class="text-xs font-bold text-slate-800">AeroPlayer MP3 v1.4</span>
+                        </div>
+                        <div class="win-btn win-close"></div>
+                    </div>
+
+                    <div class="p-5 space-y-4">
+                        <!-- Song Cover & Equalizer Display -->
+                        <div class="bg-slate-900/90 rounded-xl p-3 border border-white/50 flex items-center space-x-4 shadow-inner relative overflow-hidden">
+                            <div class="w-14 h-14 rounded-lg bg-gradient-to-tr from-cyan-400 to-emerald-400 p-0.5 border border-white shadow-md flex-shrink-0 gloss-overlay">
+                                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&auto=format&fit=crop&q=80" alt="Album Cover" class="w-full h-full object-cover rounded-md">
+                            </div>
+                            
+                            <div class="flex-grow overflow-hidden">
+                                <h4 class="text-xs font-bold text-cyan-300 truncate">Midnight Hydro-Sphere</h4>
+                                <p class="text-[11px] text-slate-400 truncate">Aero Soundscapes - Synth 2007</p>
+                                
+                                <!-- Equalizer Visualizer -->
+                                <div id="equalizer" class="flex items-end space-x-1 h-5 mt-1">
+                                    <div class="w-1.5 eq-bar rounded-t"></div>
+                                    <div class="w-1.5 eq-bar rounded-t"></div>
+                                    <div class="w-1.5 eq-bar rounded-t"></div>
+                                    <div class="w-1.5 eq-bar rounded-t"></div>
+                                    <div class="w-1.5 eq-bar rounded-t"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Simulated Progress Bar -->
+                        <div class="space-y-1">
+                            <div class="h-2 w-full bg-slate-900/30 rounded-full border border-white/60 overflow-hidden p-0.5 shadow-inner">
+                                <div id="music-progress" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full w-2/5 transition-all duration-300"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-slate-700 font-bold">
+                                <span>01:42</span>
+                                <span>03:50</span>
+                            </div>
+                        </div>
+
+                        <!-- Player Controls -->
+                        <div class="flex items-center justify-center space-x-3 pt-1">
+                            <button onclick="prevTrack()" class="w-8 h-8 rounded-full bg-white/70 hover:bg-white text-blue-900 border border-white flex items-center justify-center shadow-md transition-all gloss-overlay">
+                                <i data-lucide="skip-back" class="w-4 h-4"></i>
+                            </button>
+                            <button id="play-btn" onclick="togglePlay()" class="w-10 h-10 rounded-full aero-btn flex items-center justify-center shadow-aero-btn text-white gloss-overlay">
+                                <i data-lucide="pause" id="play-icon" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="nextTrack()" class="w-8 h-8 rounded-full bg-white/70 hover:bg-white text-blue-900 border border-white flex items-center justify-center shadow-md transition-all gloss-overlay">
+                                <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK SYSTEM INFO / PHILOSOPHY WIDGET -->
+                <div class="aero-glass rounded-2xl shadow-aero-window overflow-hidden border border-white/90 p-5 space-y-3">
+                    <h3 class="text-xs font-bold text-blue-900 tracking-wider uppercase flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-cyan-600"></i>
+                        Aesthetic Philosophy
+                    </h3>
+                    <p class="text-xs text-slate-700 leading-relaxed bg-white/40 p-3 rounded-xl border border-white/70 shadow-inner">
+                        "Technology should feel crisp, bright, and alive—like sunlight filtering through clear blue ocean waters."
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- TABBED BIO & JOURNEY SECTION -->
+        <section class="aero-glass rounded-2xl shadow-aero-window border border-white/90 overflow-hidden">
+            <!-- Window Bar -->
+            <div class="aero-titlebar px-4 py-2.5 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="file-text" class="w-4 h-4 text-blue-700"></i>
+                    <span class="text-xs font-bold text-slate-800">System_Information.sys - Bio &amp; Background</span>
+                </div>
+                <div class="win-btn win-max"></div>
+            </div>
+
+            <!-- Tab Navigation Header -->
+            <div class="flex border-b border-white/60 bg-white/30 px-4 pt-3 space-x-2">
+                <button onclick="switchTab('tab-journey')" id="btn-tab-journey" class="px-4 py-2 text-xs font-bold text-blue-900 bg-white/80 rounded-t-lg border border-b-0 border-white shadow-sm transition-all">My Journey</button>
+                <button onclick="switchTab('tab-facts')" id="btn-tab-facts" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-white/50 rounded-t-lg transition-all">Fun Facts</button>
+                <button onclick="switchTab('tab-setup')" id="btn-tab-setup" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-white/50 rounded-t-lg transition-all">Workspace Setup</button>
+            </div>
+
+            <!-- Tab Content Display -->
+            <div class="p-6 bg-white/20">
+                
+                <!-- Tab 1: Journey -->
+                <div id="tab-journey" class="tab-content space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">The Digital Odyssey</h3>
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                        Started crafting interfaces back in the era of Windows Vista and early Mac OS X Aqua. Passionate about bringing touchable depth, translucent glass textures, and glossy gradients back to modern web application design.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="p-3 bg-white/50 rounded-xl border border-white shadow-sm">
+                            <h4 class="text-xs font-bold text-blue-900">2018 - Senior UI Designer</h4>
+                            <p class="text-[11px] text-slate-600">Designed glossy corporate dashboards &amp; design systems.</p>
+                        </div>
+                        <div class="p-3 bg-white/50 rounded-xl border border-white shadow-sm">
+                            <h4 class="text-xs font-bold text-blue-900">2021 - Lead Frontend Developer</h4>
+                            <p class="text-[11px] text-slate-600">Built scalable web apps with React &amp; Tailwind integration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Fun Facts -->
+                <div id="tab-facts" class="tab-content hidden space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Curiosities &amp; Favorites</h3>
+                    <ul class="space-y-2 text-xs text-slate-700">
+                        <li class="flex items-center space-x-2 bg-white/40 p-2.5 rounded-lg border border-white/60">
+                            <i data-lucide="coffee" class="w-4 h-4 text-amber-600"></i>
+                            <span>Powered by iced matcha latte and 2000s electronic ambient tracks.</span>
+                        </li>
+                        <li class="flex items-center space-x-2 bg-white/40 p-2.5 rounded-lg border border-white/60">
+                            <i data-lucide="image" class="w-4 h-4 text-cyan-600"></i>
+                            <span>Favorite Wallpaper: Windows Vista Aurora / Aqua Blue Default.</span>
+                        </li>
+                        <li class="flex items-center space-x-2 bg-white/40 p-2.5 rounded-lg border border-white/60">
+                            <i data-lucide="monitor" class="w-4 h-4 text-emerald-600"></i>
+                            <span>Obsessed with glossy skeuomorphic icon design.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab 3: Setup -->
+                <div id="tab-setup" class="tab-content hidden space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900">Current Battlestation Specs</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="bg-white/50 p-3 rounded-xl border border-white">
+                            <span class="block text-xs font-bold text-slate-800">Display</span>
+                            <span class="text-[11px] text-slate-600">Dual 4K Glossy</span>
+                        </div>
+                        <div class="bg-white/50 p-3 rounded-xl border border-white">
+                            <span class="block text-xs font-bold text-slate-800">Audio</span>
+                            <span class="text-[11px] text-slate-600">Studio Monitors</span>
+                        </div>
+                        <div class="bg-white/50 p-3 rounded-xl border border-white">
+                            <span class="block text-xs font-bold text-slate-800">Keyboard</span>
+                            <span class="text-[11px] text-slate-600">Clear Acrylic</span>
+                        </div>
+                        <div class="bg-white/50 p-3 rounded-xl border border-white">
+                            <span class="block text-xs font-bold text-slate-800">OS Theme</span>
+                            <span class="text-[11px] text-slate-600">Aqua Aero Mod</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS & EXPERTISE GRID -->
+        <section id="skills" class="space-y-6">
+            <div class="text-center space-y-1">
+                <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight drop-shadow-sm">Technical Capabilities</h2>
+                <p class="text-xs font-semibold text-blue-900">Glossy metrics of core software engineering &amp; design skills</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Skill Card 1 -->
+                <div class="aero-glass p-5 rounded-2xl shadow-aero-window border border-white/90 space-y-3 gloss-overlay">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-500 border border-white flex items-center justify-center text-white shadow-md">
+                            <i data-lucide="code" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-900">Frontend Dev</h4>
+                            <span class="text-[10px] text-slate-600">React / Vue / Tailwind</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold text-slate-700">
+                            <span>Proficiency</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="h-2.5 w-full bg-slate-900/20 rounded-full border border-white p-0.5 shadow-inner">
+                            <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full w-[95%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="aero-glass p-5 rounded-2xl shadow-aero-window border border-white/90 space-y-3 gloss-overlay">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-400 to-teal-500 border border-white flex items-center justify-center text-white shadow-md">
+                            <i data-lucide="layers" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-900">UI/UX Design</h4>
+                            <span class="text-[10px] text-slate-600">Figma / Skeuomorphism</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold text-slate-700">
+                            <span>Proficiency</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="h-2.5 w-full bg-slate-900/20 rounded-full border border-white p-0.5 shadow-inner">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-600 rounded-full w-[90%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="aero-glass p-5 rounded-2xl shadow-aero-window border border-white/90 space-y-3 gloss-overlay">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-400 to-indigo-500 border border-white flex items-center justify-center text-white shadow-md">
+                            <i data-lucide="box" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-900">3D Graphics</h4>
+                            <span class="text-[10px] text-slate-600">Three.js / Blender</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold text-slate-700">
+                            <span>Proficiency</span>
+                            <span>82%</span>
+                        </div>
+                        <div class="h-2.5 w-full bg-slate-900/20 rounded-full border border-white p-0.5 shadow-inner">
+                            <div class="h-full bg-gradient-to-r from-purple-400 to-indigo-600 rounded-full w-[82%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4 -->
+                <div class="aero-glass p-5 rounded-2xl shadow-aero-window border border-white/90 space-y-3 gloss-overlay">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 border border-white flex items-center justify-center text-white shadow-md">
+                            <i data-lucide="music" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-900">Audio Synth</h4>
+                            <span class="text-[10px] text-slate-600">Tone.js / Logic Pro</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold text-slate-700">
+                            <span>Proficiency</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="h-2.5 w-full bg-slate-900/20 rounded-full border border-white p-0.5 shadow-inner">
+                            <div class="h-full bg-gradient-to-r from-amber-400 to-orange-600 rounded-full w-[78%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJECTS SHOWCASE GALLERY -->
+        <section id="projects" class="space-y-6">
+            <div class="text-center space-y-1">
+                <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight drop-shadow-sm">Featured Creations</h2>
+                <p class="text-xs font-semibold text-blue-900">Explore recent web builds with Frutiger Aero design aesthetic</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Project 1 -->
+                <div class="aero-glass rounded-2xl shadow-aero-window border border-white/90 overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-gradient-to-tr from-cyan-500 to-blue-600 relative overflow-hidden gloss-overlay">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80" alt="AquaSphere" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-white/80 text-blue-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white shadow-sm">Web App</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="text-base font-bold text-slate-900">AquaSphere Engine</h3>
+                            <p class="text-xs text-slate-700 leading-relaxed">A 3D interactive water simulation renderer built with WebGL and glass shaders.</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5">
+                        <button onclick="showToast('AquaSphere Demo', 'Launching live preview sandbox...')" class="w-full aero-btn py-2 rounded-xl text-xs font-bold shadow-aero-btn flex items-center justify-center space-x-1.5 gloss-overlay">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            <span>Launch Live Preview</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="aero-glass rounded-2xl shadow-aero-window border border-white/90 overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-gradient-to-tr from-emerald-500 to-teal-600 relative overflow-hidden gloss-overlay">
+                            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&auto=format&fit=crop&q=80" alt="BioDashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-white/80 text-teal-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white shadow-sm">SaaS UI</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="text-base font-bold text-slate-900">BioDashboard OS</h3>
+                            <p class="text-xs text-slate-700 leading-relaxed">Skeuomorphic metric tracking platform featuring dynamic glass widgets.</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5">
+                        <button onclick="showToast('BioDashboard Project', 'Opening project details modal...')" class="w-full aero-btn py-2 rounded-xl text-xs font-bold shadow-aero-btn flex items-center justify-center space-x-1.5 gloss-overlay">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            <span>Launch Live Preview</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="aero-glass rounded-2xl shadow-aero-window border border-white/90 overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <div class="h-44 bg-gradient-to-tr from-purple-500 to-indigo-600 relative overflow-hidden gloss-overlay">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80" alt="Vista Synthesizer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-white/80 text-purple-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white shadow-sm">Audio Tool</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="text-base font-bold text-slate-900">Vista Synth 2007</h3>
+                            <p class="text-xs text-slate-700 leading-relaxed">Browser-based web synthesizer modeled after classic 2000s media players.</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5">
+                        <button onclick="showToast('Vista Synth Tool', 'Initializing WebAudio synth context...')" class="w-full aero-btn py-2 rounded-xl text-xs font-bold shadow-aero-btn flex items-center justify-center space-x-1.5 gloss-overlay">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            <span>Launch Live Preview</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- INTERACTIVE GUESTBOOK & CONTACT FORM -->
+        <section id="guestbook" class="aero-glass rounded-2xl shadow-aero-window border border-white/90 overflow-hidden max-w-3xl mx-auto">
+            <div class="aero-titlebar px-4 py-2.5 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="message-square" class="w-4 h-4 text-blue-700"></i>
+                    <span class="text-xs font-bold text-slate-800">Guestbook_Messenger.exe - Send Message</span>
+                </div>
+                <div class="win-btn win-close"></div>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <div class="text-center space-y-1">
+                    <h3 class="text-xl font-bold text-slate-900">Leave a Note in the Guestbook</h3>
+                    <p class="text-xs text-slate-700">Send a message directly to Alex Rivera's inbox</p>
+                </div>
+
+                <form onsubmit="handleGuestbookSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label for="guest-name" class="block text-xs font-bold text-slate-800">Your Name</label>
+                            <input type="text" id="guest-name" required placeholder="e.g. Maya Lin" class="w-full px-4 py-2 rounded-xl bg-white/70 border border-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-xs text-slate-900 shadow-inner">
+                        </div>
+                        <div class="space-y-1">
+                            <label for="guest-email" class="block text-xs font-bold text-slate-800">Your Email</label>
+                            <input type="email" id="guest-email" required placeholder="maya@aero.net" class="w-full px-4 py-2 rounded-xl bg-white/70 border border-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-xs text-slate-900 shadow-inner">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label for="guest-msg" class="block text-xs font-bold text-slate-800">Message</label>
+                        <textarea id="guest-msg" rows="3" required placeholder="Hey Alex! Love the glossy Frutiger Aero design aesthetic..." class="w-full px-4 py-2 rounded-xl bg-white/70 border border-white focus:outline-none focus:ring-2 focus:ring-blue-400 text-xs text-slate-900 shadow-inner"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full aero-btn-green py-3 rounded-xl font-bold text-xs shadow-aero-btn flex items-center justify-center space-x-2 gloss-overlay">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Transmit Message</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER / TASKBAR STATUS -->
+    <footer class="w-full aero-glass border-t border-white/80 py-4 mt-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-700 space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-white shadow-sm"></span>
+                <span class="font-semibold text-slate-900">&copy; <span id="year"></span>Built with Frutiger Aero Nostalgia.</span>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex items-center space-x-4">
+                <a href="#" onclick="showToast('Twitter Profile', 'Redirecting to @AlexAero...')" class="hover:text-blue-900 transition-colors">
+                    <i data-lucide="twitter" class="w-4 h-4"></i>
+                </a>
+                <a href="#" onclick="showToast('GitHub Profile', 'Redirecting to GitHub...')" class="hover:text-blue-900 transition-colors">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="#" onclick="showToast('LinkedIn Profile', 'Redirecting to LinkedIn...')" class="hover:text-blue-900 transition-colors">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Digital Clock Script
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const formattedHours = String(hours).padStart(2, '0');
+            
+            document.getElementById('digital-clock').textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Floating Water Bubbles Generator
+        const bubbleContainer = document.getElementById('bubble-container');
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = Math.random() * 40 + 20; // Size between 20px and 60px
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDelay = `${Math.random() * 10}s`;
+            bubble.style.animationDuration = `${Math.random() * 8 + 8}s`;
+            bubbleContainer.appendChild(bubble);
+        }
+
+        // 3. Theme / Wallpaper Switcher
+        function changeTheme(themeName) {
+            const body = document.getElementById('body-bg');
+            body.classList.remove('bg-ocean', 'bg-meadow', 'bg-sunset');
+            
+            if (themeName === 'ocean') {
+                body.classList.add('bg-ocean');
+                showToast('Wallpaper Updated', 'Switched to Aqua Ocean theme.');
+            } else if (themeName === 'meadow') {
+                body.classList.add('bg-meadow');
+                showToast('Wallpaper Updated', 'Switched to Meadow Breeze theme.');
+            } else if (themeName === 'sunset') {
+                body.classList.add('bg-sunset');
+                showToast('Wallpaper Updated', 'Switched to Sunset Sky theme.');
+            }
+        }
+
+        // 4. Music Player Simulated Logic
+        let isPlaying = true;
+        const playBtnIcon = document.getElementById('play-icon');
+        const equalizer = document.getElementById('equalizer');
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                playBtnIcon.setAttribute('data-lucide', 'pause');
+                equalizer.classList.remove('paused');
+                showToast('AeroPlayer MP3', 'Resumed track playback.');
+            } else {
+                playBtnIcon.setAttribute('data-lucide', 'play');
+                equalizer.classList.add('paused');
+                showToast('AeroPlayer MP3', 'Paused track playback.');
+            }
+            lucide.createIcons();
+        }
+
+        function prevTrack() {
+            showToast('AeroPlayer MP3', 'Skipped to previous track.');
+        }
+
+        function nextTrack() {
+            showToast('AeroPlayer MP3', 'Skipped to next track.');
+        }
+
+        // 5. Tab Switcher Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Reset Tab Button Styling
+            const tabs = ['tab-journey', 'tab-facts', 'tab-setup'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (t === tabId) {
+                    btn.className = "px-4 py-2 text-xs font-bold text-blue-900 bg-white/80 rounded-t-lg border border-b-0 border-white shadow-sm transition-all";
+                } else {
+                    btn.className = "px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-white/50 rounded-t-lg transition-all";
+                }
+            });
+        }
+
+        // 6. Guestbook Form Handler
+        function handleGuestbookSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            showToast('Message Transmitted!', `Thank you ${name}, your note was added to the guestbook.`);
+            event.target.reset();
+        }
+
+        // 7. Frutiger Aero Toast Popup System
+        let toastTimeout;
+        function showToast(title, message) {
+            const toast = document.getElementById('aero-toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-message').textContent = message;
+
+            toast.classList.remove('translate-y-32', 'opacity-0');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
